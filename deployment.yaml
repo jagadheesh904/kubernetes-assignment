@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-tomcat-deployment
+  labels:
+    app: my-tomcat-app
+spec:
+  replicas: 2 # You can start with 1 or more
+  selector:
+    matchLabels:
+      app: my-tomcat-app
+  template:
+    metadata:
+      labels:
+        app: my-tomcat-app
+    spec:
+      containers:
+      - name: my-tomcat-container
+        image: my-tomcat-app:latest # This is the image we built
+        imagePullPolicy: IfNotPresent # Important for local images Minikube knows about
+        ports:
+        - containerPort: 8080 # Port Tomcat listens on inside the container
